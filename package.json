@@ -1,0 +1,17 @@
+{
+  "name": "esbuild-typescript-exapmle",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "esbuild src/main.ts --bundle --format=esm --outfile=dist/sw.js"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "esbuild": "^0.17.19",
+    "glob": "^10.2.6",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "firebase": "^9.22.0"
+  }
+}
