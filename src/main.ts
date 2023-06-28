@@ -1,9 +1,12 @@
-//import { kek } from "./hmm";
 import { initializeApp } from "firebase/app";
-import { getMessaging, onBackgroundMessage } from "firebase/messaging/sw";
-import { kek } from "./bej";
+import { getMessaging } from "firebase/messaging/sw";
+//import { onBackgroundMessage } from "firebase/messaging/sw";
+//import { kek } from "./bej";
 
 declare var self: ServiceWorkerGlobalScope;
+
+//ok, console logs show up in chrome but not in firefox
+//console.log("SW: 99 * kek(9):", 99 * kek(9));
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -47,10 +50,10 @@ function onFetch(event: FetchEvent) {
     (async () => {
       const response = await event.preloadResponse;
       if (response) {
-        console.log("SW: returning preloadResponse instead of fetching");
+        //console.log("SW: returning preloadResponse instead of fetching");
         return response;
       }
-      console.log("SW: returning regular fetch response");
+      //console.log("SW: returning regular fetch response");
       return fetch(event.request);
     })()
   );
@@ -71,16 +74,29 @@ const firebaseConfig = {
 // https://firebase.google.com/docs/web/setup#config-object
 const firebaseApp = initializeApp(firebaseConfig);
 
+// Retrieve an instance of Firebase Messaging so that it can handle backgroundmessages.
 const messaging = getMessaging(firebaseApp);
+
+/*
+
+//so apparently, "notification messages" (aka those with payload.notification not empty) are automatically shown
+//but can use onBackgroundMessage for "data messages" (aka those with payload.data not empty)
+//anyway, "data messages" dont event support payload.fcmOptions.link, which is where user is sent after clicking notification
+//so seems like the purpose of this onBackgroundMessage() is only for "data messages", with custom actions by adding notificationclick listener etc
+//https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope/notificationclick_event
+//https://firebase.google.com/docs/cloud-messaging/js/receive//
+//https://firebase.google.com/docs/cloud-messaging/concept-options#messages-with-both-notification-and-data-payloads
 
 onBackgroundMessage(messaging, (payload) => {
   console.log("SW: Received background message, payload:", payload);
   // Customize notification here
-  self.registration.showNotification(payload.notification.title, {
-    icon: "/icons/favicon-48x48.png",
-    image: payload.notification.image,
-    body: `SW (backgroundmessage): ${payload.notification.body}`,
-  });
+  
+  //self.registration.showNotification(payload.notification.title, {
+  //  icon: "/icons/favicon-48x48.png",
+  //  image: payload.notification.image,
+  //  body: `SW (backgroundmessage): ${payload.notification.body}`,
+  //});
 });
 
-console.log("SW: 55 * kek(5):", 55 * kek(5));
+
+*/
