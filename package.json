@@ -7,10 +7,10 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "esbuild": "^0.17.19",
-    "typescript": "^5.0.4"
+    "esbuild": "^0.19.12",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
-    "firebase": "^9.22.0"
+    "firebase": "^10.7.2"
   }
 }
